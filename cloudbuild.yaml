@@ -7,3 +7,12 @@ steps:
 # Docker Push
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/${PROJECT_ID}/welcome-app:$COMMIT_SHA']
+
+# Deploy config
+- name: 'gcr.io/cloud-builders/gke-deploy'
+  args:
+    - run
+    - --filename=deployment.yaml
+    - --image=gcr.io/${PROJECT_ID}/welcome-app:$COMMIT_SHA
+    - --location=australia-southeast2-a
+    - --cluster=hello-cluster
