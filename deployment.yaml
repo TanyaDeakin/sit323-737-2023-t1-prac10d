@@ -18,3 +18,17 @@ spec:
         ports:
         - containerPort: 3000
         imagePullPolicy: IfNotPresent
+
+#service.yaml code to expose the deployment
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: welcomemicroservice-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: welcomemicroservice
+  ports:
+    - port: 3000
+      targetPort: 3000
